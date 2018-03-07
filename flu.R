@@ -1,0 +1,6 @@
+rm(list = ls())
+library(fiftystater)
+library(mapdata)
+library(maps)
+library(ggplot2)
+library(ggmap)
