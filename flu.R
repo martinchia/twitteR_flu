@@ -113,14 +113,20 @@ loc.match.2 <- loc.match.2[!is.na(loc.match.2)]
 ##########################################################
 flu.loc <- c(loc.ful, loc.match.2)
 write.table(flu.loc, "flu_LOC.csv", row.names = F, col.names = F)
+
+flu.loc <- read.table("flu_LOC.csv")$V1
+head(flu.loc)
+flu.loc <- c(as.character(flu.loc), tolower(state.name))
+plot.data <- as.data.frame(table(flu.loc))
+write.table(plot.data,"plotData.csv", sep = ",", row.names = F, col.names = T)
 ###########################
 # plot geoMap
 ###########################
-plot.data <- as.data.frame(table(flu.loc))
 
 level.color = c("yellowgreen","moccasin","darkorange","darkorange2","red2","red4")
+X11()
 ggplot(plot.data, aes(map_id = flu.loc)) + 
-  geom_map(aes(fill = Freq), map = fifty_states) + 
+  geom_map(aes(fill = Freq), map = fifty_states) +
   scale_fill_gradientn(colors = level.color) +
   expand_limits(x = fifty_states$long, y = fifty_states$lat) +
   coord_map() +
@@ -128,9 +134,9 @@ ggplot(plot.data, aes(map_id = flu.loc)) +
   scale_y_continuous(breaks = NULL) +
   labs(x = "", y = "") +
   theme(legend.position = "right", 
-        panel.background = element_blank())
-#####################
-plot.data[plot.data$flu.loc == "florida",][2] <- 100
+        panel.background = element_blank())+
+  ggtitle("Flu distribution according to tweets")+
+  borders("state",colour = "black")
 
 
 
