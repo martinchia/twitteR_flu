@@ -16,8 +16,8 @@ head(flu.data)
 ##########################
 # get raw data from twitter
 ##########################
-setup_twitter_oauth(consumer_key  = "ctEpPCgPBHU7mQQqK891FN5K6", 
-                    consumer_secret = "Yq7aQUyAPJiigtPx2ySRIJvlqXvM5VChtpaNVT57MpkHtia5fv")
+setup_twitter_oauth(consumer_key  = "***********", 
+                    consumer_secret = "**********************")
 
 fludata.raw.1 <- twListToDF(searchTwitter("flu", n = 1800))
 write.table(fludata.raw.1, "flu_raw.csv", sep = ",", row.names = F, col.names = T)
